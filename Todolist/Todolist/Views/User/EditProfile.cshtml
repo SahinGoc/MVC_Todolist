@@ -1,0 +1,145 @@
+﻿@using Todolist.Models.Entity
+@using Todolist.code
+@model User_table
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_AppLayout.cshtml";
+    User_table user = SessionUtil.CreateInstance.UserSession;
+}
+
+<div class="row d-flex container">
+    <div class="col-12">
+        <div class="card-hover-shadow-2x mb-3 card">
+            <div class="card-header-tab card-header">
+                <div style="display:flex; justify-content:space-between">
+                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i class="fas fa-user-circle fa-2x"></i>&nbsp;Kullanıcı Profili</div>
+                    <button class="border-0 btn-transition btn btn-outline-danger edit_profile" id="edit_profile_btn">
+                        <i class="far fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="scroll-area-sm">
+                <perfect-scrollbar class="ps-show-limits">
+                    <div style="position: static;" class="ps ps--active-y">
+                        <div class="ps-content">
+                            <ul class=" list-group list-group-flush sortable">
+                                <li class="list-group-item profile_list">
+                                    <div class="todo-indicator" style="background-color: cornflowerblue"></div>
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-2">
+                                                <i class="fas fa-grip-vertical"></i>
+                                            </div>
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">
+                                                    İsim Soyisim
+                                                    <div class="badge ml-2" style="color: white; background-color: cornflowerblue">Bi ara</div>
+                                                </div>
+                                                <div class="widget-subheading"><i>@user.name_surname</i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item profile_list">
+                                    <div class="todo-indicator" style="background-color: yellowgreen"></div>
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-2">
+                                                <i class="fas fa-grip-vertical"></i>
+                                            </div>
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">
+                                                    E-posta
+                                                    <div class="badge ml-2" style="color: white; background-color: yellowgreen">Günlük</div>
+                                                </div>
+                                                <div class="widget-subheading"><i>@user.email</i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item profile_list">
+                                    <div class="todo-indicator" style="background-color: red"></div>
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-2">
+                                                <i class="fas fa-grip-vertical"></i>
+                                            </div>
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">
+                                                    Şifre
+                                                    <div class="badge ml-2" style="color: white; background-color: red">Önemli</div>
+                                                </div>
+                                                <div class="widget-subheading"><i>********</i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                @using (Html.BeginForm("EditProfile", "User", FormMethod.Post, new { @id = "edit_profile_form" }))
+                                {
+                                    <li class="list-group-item edit_form_list">
+                                        <div class="todo-indicator" style="background-color: cornflowerblue"></div>
+                                        <div class="widget-content p-0">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-left mr-2">
+                                                    <i class="fas fa-grip-vertical"></i>
+                                                </div>
+                                                <div class="widget-content-left">
+                                                    <div class="widget-heading">
+                                                        İsim Soyisim
+                                                        <div class="badge ml-2" style="color: white; background-color: cornflowerblue">Bi ara</div>
+                                                    </div>
+                                                    <div class="widget-subheading"><i>@Html.TextBoxFor(m => m.name_surname, new { @class = "from-control textbox", @required = "", @maxLength = "50", @Value = user.name_surname })</i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item edit_form_list">
+                                        <div class="todo-indicator" style="background-color: yellowgreen"></div>
+                                        <div class="widget-content p-0">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-left mr-2">
+                                                    <i class="fas fa-grip-vertical"></i>
+                                                </div>
+                                                <div class="widget-content-left">
+                                                    <div class="widget-heading">
+                                                        E-posta
+                                                        <div class="badge ml-2" style="color: white; background-color: yellowgreen">Günlük</div>
+                                                    </div>
+                                                    <div class="widget-subheading"><i>@Html.TextBoxFor(m => m.email, new { @class = "from-control textbox", @required = "", @maxLength = "50", @Value = user.email })</i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item edit_form_list">
+                                        <div class="todo-indicator" style="background-color: red"></div>
+                                        <div class="widget-content p-0">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-left mr-2">
+                                                    <i class="fas fa-grip-vertical"></i>
+                                                </div>
+                                                <div class="widget-content-left">
+                                                    <div class="widget-heading">
+                                                        Şifre
+                                                        <div class="badge ml-2" style="color:white; background-color: red">Önemli</div>
+                                                    </div>
+                                                    <div class="widget-subheading"><i>@Html.PasswordFor(m => m.password, new { @class = "from-control textbox", @required = "", @maxLength = "20", @Value = user.password })</i></div>
+                                                    @Html.TextBoxFor(m => m.id, new { @class = "from-control textbox", @Value = user.id, @style = "display: none" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </perfect-scrollbar>
+            </div>
+            <div class="edit_footer">
+                <div class="d-block text-right card-footer">
+                    <button class="btn btn-primary" type="submit" form="edit_profile_form">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

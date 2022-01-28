@@ -1,0 +1,20 @@
+﻿@using Todolist.Models.Entity
+@model List<Category_table>
+@{
+    Layout = null;
+}
+
+
+@foreach (var category in Model)
+{
+    <a href="@Url.Action("Category/" + category.id, "todo")" class="nav_link">
+        <i class='far fa-dot-circle nav_icon'></i>
+        <span class="nav_name">@category.name</span>
+    </a>
+}
+
+<a href="@Url.Action("AddNewCategory", "Category")" class="nav_link">
+    <i class="fa fa-plus"></i>
+    <span class="nav_name">Kategori Ekle</span>
+</a>
+

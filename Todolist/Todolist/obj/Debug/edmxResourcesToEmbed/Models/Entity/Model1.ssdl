@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Db_TodolistModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Category_table">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Todo_table">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="category_id" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="varchar(max)" Nullable="false" />
+    <Property Name="creation_datetime" Type="datetime" />
+    <Property Name="deadline_datetime" Type="datetime" />
+    <Property Name="remember_datetime" Type="datetime" />
+    <Property Name="repeat_time" Type="datetime" />
+    <Property Name="ticket1" Type="bit" Nullable="false" />
+    <Property Name="ticket2" Type="bit" Nullable="false" />
+    <Property Name="ticket3" Type="bit" Nullable="false" />
+    <Property Name="ok" Type="bit" />
+    <Property Name="archived" Type="bit" />
+  </EntityType>
+  <EntityType Name="User_table">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name_surname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Category_table_User_table">
+    <End Role="User_table" Type="Self.User_table" Multiplicity="1" />
+    <End Role="Category_table" Type="Self.Category_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_table">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Category_table">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Todo_table_Category_table">
+    <End Role="Category_table" Type="Self.Category_table" Multiplicity="1" />
+    <End Role="Todo_table" Type="Self.Todo_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category_table">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Todo_table">
+        <PropertyRef Name="category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Db_TodolistModelStoreContainer">
+    <EntitySet Name="Category_table" EntityType="Self.Category_table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Todo_table" EntityType="Self.Todo_table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User_table" EntityType="Self.User_table" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Category_table_User_table" Association="Self.FK_Category_table_User_table">
+      <End Role="User_table" EntitySet="User_table" />
+      <End Role="Category_table" EntitySet="Category_table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Todo_table_Category_table" Association="Self.FK_Todo_table_Category_table">
+      <End Role="Category_table" EntitySet="Category_table" />
+      <End Role="Todo_table" EntitySet="Todo_table" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

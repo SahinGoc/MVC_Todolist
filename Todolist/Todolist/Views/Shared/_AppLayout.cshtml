@@ -1,0 +1,97 @@
+﻿@using Todolist.Models.Entity
+@using Todolist.code
+@{
+    Layout = null;
+    User_table user = SessionUtil.CreateInstance.UserSession;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Todolist</title>
+    <link rel="stylesheet" href="~/My_Content/AppLayout.css" />
+    <link rel="stylesheet" href="~/My_Content/list.css" />
+    <link rel="stylesheet" href="~/Content/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+    <link rel="stylesheet" href="~/fonts/font awesome/css/all.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+</head>
+<body id="body-pd">
+    <header class="header" id="header">
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+        <div style="display:flex; align-items:center">
+            <div id="edit_todo_btn">
+                <a><i class="fa fa-edit"></i></a>
+            </div>
+            <div id="add_todo_btn" style="margin-right: 10px; margin-left: 10px">
+                <a><i class="fa fa-plus-circle fa-2x" style="color: #4723D9"></i></a>
+            </div>
+            <div id="delete_category_btn">
+                <a><i class="fas fa-trash-alt"></i></a>
+            </div>
+        </div>
+    </header>
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div>
+                <a class="nav_logo" href="/User/EditProfile">
+                    <svg width="32" height="32" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+                        <title>Todolist</title>
+                        <defs>
+                            <radialGradient cy="0%" fx="50%" fy="0%" r="100%" id="logo-gradient-footer">
+                                <stop stop-color="#00A2B8" offset="0%" />
+                                <stop stop-color="#00F9D2" offset="100%" />
+                            </radialGradient>
+                        </defs>
+                        <path d="M16 32C7.163 32 0 24.837 0 16S7.163 0 16 0s16 7.163 16 16-7.163 16-16 16zm0-10a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" fill="url(#logo-gradient-footer)" fill-rule="evenodd" />
+                    </svg>
+                    <span class="nav_logo-name">@user.name_surname</span>
+                </a>
+                <div class="nav_list">
+                    <a href="/Todo/Index" class="nav_link">
+                        <i class='fa fa-tasks nav_icon'></i>
+                        <span class="nav_name">Tüm Yapılacaklar</span>
+                    </a>
+                    <a href="#" class="nav_link" id="category_list">
+                        <i class='fa fa-stream nav_icon' id="category_list_icon"></i>
+                        <span class="nav_name">Kategoriler</span>
+
+                    </a>
+                    <div class="ctg">@Html.Action("CategoryList", "Category")</div>
+                    <a href="/Todo/Ok" class="nav_link">
+                        <i class='fa fa-clipboard-check nav_icon'></i>
+                        <span class="nav_name">Tamamlananlar</span>
+                    </a>
+                    <a href="~/Todo/Archived" class="nav_link">
+                        <i class='fa fa-archive nav_icon'></i>
+                        <span class="nav_name">Arşivlenenler</span>
+                    </a>
+                </div>
+            </div>
+            <a class="nav_link" href="@Url.Action("SignOut", "User")">
+                <i class='bx bx-log-out nav_icon'></i>
+                <span class="nav_name">
+                    Çıkış Yap
+                </span>
+            </a>
+        </nav>
+    </div>
+    <!--Container Main start-->
+    <div class="height-100 bg-light">
+        @RenderBody()
+    </div>
+    <!--Container Main end-->
+
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="~/My_Scripts/AppLayout.js"></script>
+    <script src="~/My_Scripts/list.js"></script>
+    <script src="~/My_Scripts/category_list.js"></script>
+</body>
+</html>
+
+

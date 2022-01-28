@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Db_TodolistModelStoreContainer" CdmEntityContainer="Db_TodolistEntities">
+    <EntitySetMapping Name="Category_table">
+      <EntityTypeMapping TypeName="Db_TodolistModel.Category_table">
+        <MappingFragment StoreEntitySet="Category_table">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Db_TodolistModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Todo_table">
+      <EntityTypeMapping TypeName="Db_TodolistModel.Todo_table">
+        <MappingFragment StoreEntitySet="Todo_table">
+          <ScalarProperty Name="repeat_time" ColumnName="repeat_time" />
+          <ScalarProperty Name="remember_datetime" ColumnName="remember_datetime" />
+          <ScalarProperty Name="deadline_datetime" ColumnName="deadline_datetime" />
+          <ScalarProperty Name="creation_datetime" ColumnName="creation_datetime" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="category_id" ColumnName="category_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="archived" ColumnName="archived" />
+          <ScalarProperty Name="ok" ColumnName="ok" />
+          <ScalarProperty Name="ticket1" ColumnName="ticket1" />
+          <ScalarProperty Name="ticket2" ColumnName="ticket2" />
+          <ScalarProperty Name="ticket3" ColumnName="ticket3" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_table">
+      <EntityTypeMapping TypeName="Db_TodolistModel.User_table">
+        <MappingFragment StoreEntitySet="User_table">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name_surname" ColumnName="name_surname" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

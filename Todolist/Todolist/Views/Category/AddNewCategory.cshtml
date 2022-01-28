@@ -1,0 +1,42 @@
+﻿@using Todolist.Models.Entity
+@using Todolist.code
+@model Category_table
+@{
+    ViewBag.Title = "AddNewCategory";
+    Layout = "~/Views/Shared/_AppLayout.cshtml";
+    var user = SessionUtil.CreateInstance.UserSession;
+}
+
+<div class="row d-flex container">
+    <div class="col-12">
+        <div class="card-hover-shadow-2x mb-3 card">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                    <i class="fa fa-clipboard-check"></i>&nbsp;
+                    @using (Html.BeginForm("AddNewCategory", "Category", FormMethod.Post, new { @id = "form_newcategory" }))
+                    {
+                        @Html.TextBoxFor(m => m.name, new { @class = "from-control textbox", @required = "", @maxLength = "50", @placeholder = "Kategori İsmi" })
+                        @Html.TextBoxFor(m => m.user_id, new { @class = "from-control textbox", @style = "display: none", @Value = user.id })
+                    }
+                </div>
+                <div class="widget-content-right">
+                    <button class="border-0 btn-transition btn btn-outline-success" form="form_newcategory" type="submit">
+                        <i class="fa fa-check"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="scroll-area-sm">
+                <perfect-scrollbar class="ps-show-limits">
+                    <div style="position: static;" class="ps ps--active-y">
+                        <div class="ps-content">
+
+                        </div>
+                    </div>
+                </perfect-scrollbar>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Db_TodolistModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category_table">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="User_table" Relationship="Self.FK_Category_table_User_table" FromRole="Category_table" ToRole="User_table" />
+    <NavigationProperty Name="Todo_table" Relationship="Self.FK_Todo_table_Category_table" FromRole="Category_table" ToRole="Todo_table" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Todo_table">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="category_id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="archived" Type="Boolean" />
+    <Property Name="ok" Type="Boolean" />
+    <Property Name="ticket1" Type="Boolean" Nullable="false" />
+    <Property Name="ticket2" Type="Boolean" Nullable="false" />
+    <Property Name="ticket3" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Category_table" Relationship="Self.FK_Todo_table_Category_table" FromRole="Todo_table" ToRole="Category_table" />
+    <Property Name="creation_datetime" Type="DateTime" Precision="3" />
+    <Property Name="deadline_datetime" Type="DateTime" Precision="3" />
+    <Property Name="remember_datetime" Type="DateTime" Precision="3" />
+    <Property Name="repeat_time" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="User_table">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name_surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Category_table" Relationship="Self.FK_Category_table_User_table" FromRole="User_table" ToRole="Category_table" />
+  </EntityType>
+  <Association Name="FK_Category_table_User_table">
+    <End Role="User_table" Type="Self.User_table" Multiplicity="1" />
+    <End Role="Category_table" Type="Self.Category_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_table">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Category_table">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Todo_table_Category_table">
+    <End Role="Category_table" Type="Self.Category_table" Multiplicity="1" />
+    <End Role="Todo_table" Type="Self.Todo_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category_table">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Todo_table">
+        <PropertyRef Name="category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Db_TodolistEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Category_table" EntityType="Self.Category_table" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Todo_table" EntityType="Self.Todo_table" />
+    <EntitySet Name="User_table" EntityType="Self.User_table" />
+    <AssociationSet Name="FK_Category_table_User_table" Association="Self.FK_Category_table_User_table">
+      <End Role="User_table" EntitySet="User_table" />
+      <End Role="Category_table" EntitySet="Category_table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Todo_table_Category_table" Association="Self.FK_Todo_table_Category_table">
+      <End Role="Category_table" EntitySet="Category_table" />
+      <End Role="Todo_table" EntitySet="Todo_table" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
